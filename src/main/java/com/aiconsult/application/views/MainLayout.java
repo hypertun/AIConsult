@@ -1,85 +1,64 @@
 package com.aiconsult.application.views;
 
+import com.aiconsult.application.views.home.HomeView;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.SvgIcon;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
-import com.vaadin.flow.router.Layout;
+import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.flow.server.menu.MenuConfiguration;
-import com.vaadin.flow.server.menu.MenuEntry;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import java.util.List;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
-@Layout
 @AnonymousAllowed
 public class MainLayout extends AppLayout {
 
     private H1 viewTitle;
 
     public MainLayout() {
-        setPrimarySection(Section.DRAWER);
-        addDrawerContent();
-        addHeaderContent();
+        setPrimarySection(Section.NAVBAR); // Changed to navbar
+        addToNavbar(true, createHeaderContent());
+        addToDrawer(createDrawerContent());
     }
-
-    private void addHeaderContent() {
+    private Component createHeaderContent(){
         DrawerToggle toggle = new DrawerToggle();
         toggle.setAriaLabel("Menu toggle");
-
-        viewTitle = new H1();
+        viewTitle = new H1("Adept AI Solutions");
         viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
 
-        addToNavbar(true, toggle, viewTitle);
+        HorizontalLayout headerContent = new HorizontalLayout(toggle, viewTitle);
+        headerContent.setWidthFull();
+        headerContent.setAlignItems(FlexComponent.Alignment.CENTER);
+        return headerContent;
     }
-
-    private void addDrawerContent() {
-        Span appName = new Span("My App");
-        appName.addClassNames(LumoUtility.FontWeight.SEMIBOLD, LumoUtility.FontSize.LARGE);
-        Header header = new Header(appName);
-
+    private Component createDrawerContent(){
         Scroller scroller = new Scroller(createNavigation());
-
-        addToDrawer(header, scroller, createFooter());
+        return new VerticalLayout(scroller);
     }
-
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
 
-        List<MenuEntry> menuEntries = MenuConfiguration.getMenuEntries();
-        menuEntries.forEach(entry -> {
-            if (entry.icon() != null) {
-                nav.addItem(new SideNavItem(entry.title(), entry.path(), new SvgIcon(entry.icon())));
-            } else {
-                nav.addItem(new SideNavItem(entry.title(), entry.path()));
-            }
-        });
+        nav.addItem(new SideNavItem("Home", HomeView.class, VaadinIcon.HOME.create()));
+        // nav.addItem(new SideNavItem("Services", ServicesView.class, VaadinIcon.TOOLS.create()));
+        // nav.addItem(new SideNavItem("About Us", AboutView.class, VaadinIcon.INFO_CIRCLE.create()));
+        // nav.addItem(new SideNavItem("Contact", ContactView.class, VaadinIcon.ENVELOPE.create()));
 
         return nav;
-    }
-
-    private Footer createFooter() {
-        Footer layout = new Footer();
-
-        return layout;
     }
 
     @Override
     protected void afterNavigation() {
         super.afterNavigation();
-        viewTitle.setText(getCurrentPageTitle());
-    }
-
-    private String getCurrentPageTitle() {
-        return MenuConfiguration.getPageHeader(getContent()).orElse("");
+        // viewTitle.setText(getCurrentPageTitle()); // No need to get page header from menu config
     }
 }

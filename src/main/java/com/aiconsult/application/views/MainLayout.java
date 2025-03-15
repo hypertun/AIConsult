@@ -1,6 +1,7 @@
 package com.aiconsult.application.views;
 
 import com.aiconsult.application.views.home.HomeView;
+import com.aiconsult.application.views.services.ServicesView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -49,7 +50,7 @@ public class MainLayout extends AppLayout {
         SideNav nav = new SideNav();
 
         nav.addItem(new SideNavItem("Home", HomeView.class, VaadinIcon.HOME.create()));
-        // nav.addItem(new SideNavItem("Services", ServicesView.class, VaadinIcon.TOOLS.create()));
+        nav.addItem(new SideNavItem("Services", ServicesView.class, VaadinIcon.TOOLS.create()));
         // nav.addItem(new SideNavItem("About Us", AboutView.class, VaadinIcon.INFO_CIRCLE.create()));
         // nav.addItem(new SideNavItem("Contact", ContactView.class, VaadinIcon.ENVELOPE.create()));
 

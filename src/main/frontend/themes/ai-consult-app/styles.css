@@ -1,1 +1,62 @@
 @import url('./main-layout.css');
+
+.home-view {
+    background-image: url('images/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Make the background cover the full viewport height */
+    width: 100vw; /* Make the background cover the full viewport width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Default text color for better contrast on the background */
+  }
+  .home-view * {
+    color: white; /* Or any other color that contrasts with your background */
+  }
+
+  /* Style for the content box in HomeView */
+.home-view div {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    padding: var(--lumo-space-l);
+    border-radius: var(--lumo-border-radius-l);
+    box-shadow: var(--lumo-box-shadow-l);
+}
+
+/* Style for Services view */
+.services-view {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the Services card */
+.services-view .service-card {
+    background-color: var(--lumo-base-color);
+    border: 1px solid var(--lumo-contrast-10pct);
+    padding: var(--lumo-space-l);
+    margin-bottom: var(--lumo-space-l);
+    border-radius: var(--lumo-border-radius-m);
+    box-shadow: var(--lumo-box-shadow-s);
+    width: 400px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* make the contact button style */
+.services-view vaadin-button{
+    background-color: var(--lumo-primary-color);
+    color: var(--lumo-primary-contrast-color);
+    padding: var(--lumo-space-m) var(--lumo-space-xl);
+    border-radius: var(--lumo-border-radius-m);
+    box-shadow: var(--lumo-box-shadow-s);
+    text-transform: uppercase;
+}
+.services-view vaadin-button:hover{
+    box-shadow: var(--lumo-box-shadow-m);
+}
